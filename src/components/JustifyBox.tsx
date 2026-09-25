@@ -1,104 +1,73 @@
-type JustifyBoxProps = {
-  name: string;
+type niran = {
   justifyClass: string;
   itemsClass: string;
+  rows: number;
+  columns: number;
 };
 
 function JustifyBox({
-  name,
   justifyClass,
   itemsClass,
-}: JustifyBoxProps) {
-
-  // Decide which 2 of the 12 cells contain A and B
-  const positions: Record<string, [number, number]> = {
-
-    // Start
-    "justify-start-items-start": [1, 2],
-    "justify-start-items-center": [5, 6],
-    "justify-start-items-end": [9, 10],
-
-    // Center
-    "justify-center-items-start": [2, 3],
-    "justify-center-items-center": [6, 7],
-    "justify-center-items-end": [10, 11],
-
-    // End
-    "justify-end-items-start": [3, 4],
-    "justify-end-items-center": [7, 8],
-    "justify-end-items-end": [11, 12],
-
-    // Space Between
-    "justify-between-items-center": [5, 8],
-
-    // Space Around
-    "justify-around-items-center": [6, 7],
-
-    // Space Evenly
-    "justify-evenly-items-center": [5, 8],
-  };
-
-  const key = `${justifyClass}-${itemsClass}`;
-
-  const [aPosition, bPosition] =
-    positions[key] || [1, 2];
-
+  rows,
+  columns,
+}: niran) {
   return (
-    <div className="bg-white border border-gray-300 rounded-xl p-4">
+    <div className="rounded-xl border border-gray-300 bg-white p-4">
 
-      {/* Title */}
-      <h2 className="text-lg font-semibold mb-4">
-        {name}
-      </h2>
+      {/* Grid */}
+      <div
+        className="relative flex w-full"
+        style={{
+          aspectRatio: `${columns} / ${rows}`,
+          backgroundImage: `
+            linear-gradient(to right, #94a3b8 1px, transparent 1px),
+            linear-gradient(to bottom, #94a3b8 1px, transparent 1px)
+          `,
+          backgroundSize: `
+            calc(100% / ${columns}) calc(100% / ${rows})
+          `,
+        }}
+      >
 
-      {/* EXACTLY 12 BOXES */}
-      <div className="grid grid-cols-4 grid-rows-3">
+        {/* A and B */}
+        <div
+          className={`
+            absolute inset-0
+            flex
+            ${justifyClass}
+            ${itemsClass}
+          `}
+        >
 
-        {Array.from({ length: 12 }, (_, index) => {
+          {/* A */}
+          <div
+            className="flex shrink-0 items-center justify-center border border-green-400 bg-green-100"
+            style={{
+              width: `calc(100% / ${columns})`,
+              height: `calc(100% / ${rows})`,
+            }}
+          >
+            A
+          </div>
 
-          const cellNumber = index + 1;
+          {/* B */}
+          <div
+            className="flex shrink-0 items-center justify-center border border-green-400 bg-green-100"
+            style={{
+              width: `calc(100% / ${columns})`,
+              height: `calc(100% / ${rows})`,
+            }}
+          >
+            B
+          </div>
 
-          const isA = cellNumber === aPosition;
-          const isB = cellNumber === bPosition;
-
-          return (
-            <div
-              key={cellNumber}
-              className="h-20 border border-gray-400 flex items-center justify-center"
-            >
-
-              {isA && (
-                <div
-                  className={`bg-green-100 border border-green-300 px-4 py-3 rounded-lg flex ${justifyClass} ${itemsClass}`}
-                >
-                  A
-                </div>
-              )}
-
-              {isB && (
-                <div
-                  className={`bg-green-100 border border-green-300 px-4 py-3 rounded-lg flex ${justifyClass} ${itemsClass}`}
-                >
-                  B
-                </div>
-              )}
-
-            </div>
-          );
-        })}
+        </div>
 
       </div>
 
-      {/* Tailwind Classes */}
-      <div className="mt-4 text-center">
-        <p className="text-sm font-medium text-gray-600">
-          {justifyClass}
-        </p>
-
-        <p className="text-sm font-medium text-gray-600">
-          {itemsClass}
-        </p>
-      </div>
+      <p className="mt-3 text-center text-sm text-gray-500">
+        {justifyClass} + {itemsClass}
+      </p>
 
     </div>
   );

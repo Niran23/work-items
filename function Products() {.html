@@ -1,0 +1,110 @@
+function Products() {
+  const products = [
+    {
+      id: 1,
+      name: "Sauce Labs Backpack",
+      price: 29.99,
+      image:
+        "https://www.saucedemo.com/images/sauce-backpack.jpg",
+    },
+    {
+      id: 2,
+      name: "Sauce Labs Bike Light",
+      price: 9.99,
+      image:
+        "https://www.saucedemo.com/images/bike-light.jpg",
+    },
+    {
+      id: 3,
+      name: "Sauce Labs Bolt T-Shirt",
+      price: 15.99,
+      image:
+        "https://www.saucedemo.com/images/bolt-t-shirt.jpg",
+    },
+    {
+      id: 4,
+      name: "Sauce Labs Fleece Jacket",
+      price: 49.99,
+      image:
+        "https://www.saucedemo.com/images/sauce-pullover.jpg",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-100">
+
+      {/* Header */}
+      <header className="bg-[#092b26] text-white px-8 py-6 flex justify-between items-center">
+
+        <h1 className="text-2xl font-bold">
+          Swag Labs
+        </h1>
+
+        <button className="text-2xl cursor-pointer">
+          🛒
+        </button>
+
+      </header>
+
+      {/* Main */}
+      <main className="p-8">
+
+        {/* Title + Sort */}
+        <div className="flex justify-between items-center mb-8">
+
+          <h2 className="text-3xl font-bold">
+            Products
+          </h2>
+
+          <select className="border border-gray-300 rounded px-4 py-3 bg-white cursor-pointer">
+            <option>Name (A to Z)</option>
+            <option>Name (Z to A)</option>
+            <option>Price (low to high)</option>
+            <option>Price (high to low)</option>
+          </select>
+
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-lg shadow p-5"
+            >
+
+              {/* Image */}
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-48 object-contain mb-4"
+              />
+
+              {/* Name */}
+              <h3 className="text-lg font-bold mb-3">
+                {product.name}
+              </h3>
+
+              {/* Price */}
+              <p className="text-gray-700 mb-4">
+                ${product.price}
+              </p>
+
+              {/* Add to Cart */}
+              <button className="w-full bg-[#3ddc97] py-3 rounded font-bold cursor-pointer hover:bg-[#32c985]">
+                Add to Cart
+              </button>
+
+            </div>
+          ))}
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+}
+
+export default Products;

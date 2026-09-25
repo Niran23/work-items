@@ -1,55 +1,69 @@
 import { useState } from "react";
 
 type LoginProps = {
-  onLogin: () => void;
+  setPage: (page: string) => void;
 };
 
-function Login({ onLogin }: LoginProps) {
+function Login({ setPage }: LoginProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = () => {
     if (
       username === "standard_user" &&
       password === "secret_sauce"
     ) {
-      onLogin();
+      setError("");
+      setPage("products");
     } else {
-      alert("Invalid username or password");
+      setError("Username or password is incorrect");
     }
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f0faf7] pt-10">
+    <div className="min-h-screen bg-[#f0faf7] flex flex-col items-center pt-12">
 
-      <h1 className="text-center text-4xl font-normal">
-        flex justify
+      {/* Logo */}
+      <h1 className="text-4xl font-normal mb-12">
+        swag labs
       </h1>
 
-      <div className="mx-auto mt-12 w-[900px] max-w-[90%] overflow-hidden rounded-lg bg-white">
+      {/* Login Card */}
+      <div className="w-[900px] max-w-[90%] bg-white rounded-lg overflow-hidden">
 
         {/* Login Form */}
-        <div className="mx-auto w-[315px] p-10">
+        <div className="flex flex-col items-center py-14">
 
+          {/* Username */}
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="mb-5 block h-11 w-full border-0 border-b border-gray-300 px-2 text-base outline-none"
+            className="w-[250px] border-b border-gray-300 py-3 mb-6 outline-none"
           />
 
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mb-5 block h-11 w-full border-0 border-b border-gray-300 px-2 text-base outline-none"
+            className="w-[250px] border-b border-gray-300 py-3 mb-6 outline-none"
           />
 
+          {/* Error */}
+          {error && (
+            <p className="text-red-600 text-sm mb-5 text-center">
+              {error}
+            </p>
+          )}
+
+          {/* Login Button */}
           <button
             onClick={handleLogin}
-            className="mt-5 h-[54px] w-full rounded bg-[#3ddc97] text-base"
+            className="w-[250px] bg-[#3ddc97] py-4 rounded font-medium cursor-pointer hover:bg-[#32c985]"
           >
             Login
           </button>
@@ -57,35 +71,36 @@ function Login({ onLogin }: LoginProps) {
         </div>
 
         {/* Information Section */}
-        <div className="flex justify-between bg-[#102522] px-8 py-10 text-white">
+        <div className="bg-[#092b26] text-white p-8 flex justify-between">
 
+          {/* Usernames */}
           <div>
-            <h3 className="mb-6 text-[17px] font-semibold">
+            <h2 className="font-bold mb-6">
               Accepted usernames are:
-            </h3>
+            </h2>
 
-            <p className="my-2 font-mono">standard_user</p>
-            <p className="my-2 font-mono">locked_out_user</p>
-            <p className="my-2 font-mono">problem_user</p>
-            <p className="my-2 font-mono">performance_glitch_user</p>
-            <p className="my-2 font-mono">error_user</p>
-            <p className="my-2 font-mono">visual_user</p>
+            <p className="mb-3">standard_user</p>
+            <p className="mb-3">locked_out_user</p>
+            <p className="mb-3">problem_user</p>
+            <p className="mb-3">
+              performance_glitch_user
+            </p>
+            <p className="mb-3">error_user</p>
+            <p>visual_user</p>
           </div>
 
+          {/* Password */}
           <div>
-            <h3 className="mb-6 text-[17px] font-semibold">
+            <h2 className="font-bold mb-6">
               Password for all users:
-            </h3>
+            </h2>
 
-            <p className="my-2 font-mono">
-              secret_sauce
-            </p>
+            <p>secret_sauce</p>
           </div>
 
         </div>
 
       </div>
-
     </div>
   );
 }
